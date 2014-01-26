@@ -1,0 +1,25 @@
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'maven'
+
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile gradleApi()
+	compile localGroovy()
+
+	compile group: 'org.tmatesoft.svnkit', name: 'svnkit', version: '1.8.3'
+
+	testCompile "junit:junit:4.10"
+}
