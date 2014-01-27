@@ -51,6 +51,18 @@ The *gradle-release-plugin* defines three custom tasks.
 		<td>developmentVersion</th>
 		<td>The new project version of the branch</th>
 	</tr>
+	<tr>
+		<td>folderName</th>
+		<td>The SVN folder name of the new tag</th>
+	</tr>
+	<tr>
+		<td>simulateRun</th>
+		<td>Simulates the SVN tag process</th>
+	</tr>
+	<tr>
+		<td>revision</th>
+		<td>The SVN revision number to tag</th>
+	</tr>
 </table> 
  
  The task requires the arguments username, password, url and developmentVersion.
@@ -85,6 +97,18 @@ The *gradle-release-plugin* defines three custom tasks.
 	<tr>
 		<td>tagVersion</th>
 		<td>The new project version of the tag</th>
+	</tr>
+		<tr>
+		<td>folderName</th>
+		<td>The SVN folder name of the new tag</th>
+	</tr>
+	<tr>
+		<td>simulateRun</th>
+		<td>Simulates the SVN tag process</th>
+	</tr>
+	<tr>
+		<td>revision</th>
+		<td>The SVN revision number to tag</th>
 	</tr>
 </table> 
  
