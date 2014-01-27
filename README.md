@@ -52,6 +52,10 @@ The *gradle-release-plugin* defines three custom tasks.
 		<td>The new project version of the branch</th>
 	</tr>
 	<tr>
+		<td>tagVersion</th>
+		<td>The new project version of the tag</th>
+	</tr>
+	<tr>
 		<td>folderName</th>
 		<td>The SVN folder name of the new tag</th>
 	</tr>
@@ -65,7 +69,7 @@ The *gradle-release-plugin* defines three custom tasks.
 	</tr>
 </table> 
  
- The task requires the arguments username, password, url and developmentVersion.
+ The task requires the arguments username, password, url, developmentVersion and tagVersion.
  If one of them is missing an error message is displayed and the task execution stops.
  
 ## Task: createBranch
@@ -95,10 +99,6 @@ The *gradle-release-plugin* defines three custom tasks.
 		<td>The new project version of the branch</th>
 	</tr>
 	<tr>
-		<td>tagVersion</th>
-		<td>The new project version of the tag</th>
-	</tr>
-		<tr>
 		<td>folderName</th>
 		<td>The SVN folder name of the new tag</th>
 	</tr>
@@ -112,7 +112,7 @@ The *gradle-release-plugin* defines three custom tasks.
 	</tr>
 </table> 
  
- The task requires the arguments username, password, url, developmentVersion and tagVersion.
+ The task requires the arguments username, password, url and developmentVersion.
  If one of them is missing an error message is displayed and the task execution stops.
  
  
