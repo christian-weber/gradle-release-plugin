@@ -12,6 +12,7 @@ import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.StopExecutionException;
 import org.gradle.plugin.release.SVNInfo;
+import org.gradle.plugin.release.action.ReleaseAction;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNProperties;
@@ -27,9 +28,6 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
  * @since 1.0
  */
 public abstract class SetVersionReleaseAction implements ReleaseAction {
-
-	private static final String COMMENT = "GRADLE properties";
-	private static final String COMMENT2 = "project version set to tag version";
 
 	/**
 	 * {@inheritDoc}
@@ -57,12 +55,13 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 			Properties properties = new Properties();
 			properties.load(new FileInputStream(gradleProperties));
 
+			FileOutputStream os = new FileOutputStream(gradleProperties);
 			properties.put("version", getVersion(info));
-			properties.store(new FileOutputStream(gradleProperties), COMMENT);
+			properties.store(os, "GRADLE properties");
 
 			// commit 'gradle.properties' file
 			File[] paths = new File[] { gradleProperties };
-			client.doCommit(paths, false, COMMENT2, new SVNProperties(),
+			client.doCommit(paths, false, getComment(), new SVNProperties(),
 					new String[0], true, true, SVNDepth.UNKNOWN);
 
 		} catch (IOException e) {
@@ -88,7 +87,20 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 	 */
 	protected abstract String getVersion(SVNInfo info);
 
-	public static class SetTagVersionReleaseAction extends SetVersionReleaseAction {
+	/**
+	 * Returns the SVN commit comment.
+	 * 
+	 * @return String
+	 */
+	protected abstract String getComment();
+
+	/**
+	 * {@link SetVersionReleaseAction} implementation for tag version.
+	 * 
+	 * @author christian.weber
+	 */
+	public static class SetTagVersionReleaseAction extends
+			SetVersionReleaseAction {
 
 		/**
 		 * {@inheritDoc}
@@ -105,9 +117,20 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 			return version;
 		}
 
+		@Override
+		protected String getComment() {
+			return "gradle-release: project version set to tag version";
+		}
+
 	}
-	
-	public static class SetDevVersionReleaseAction extends SetVersionReleaseAction {
+
+	/**
+	 * {@link SetVersionReleaseAction} implementation for development version.
+	 * 
+	 * @author christian.weber
+	 */
+	public static class SetDevVersionReleaseAction extends
+			SetVersionReleaseAction {
 
 		/**
 		 * {@inheritDoc}
@@ -117,7 +140,11 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 			return info.getDevelopmentVersion();
 		}
 
+		@Override
+		protected String getComment() {
+			return "gradle-release: project version set to development version";
+		}
+
 	}
 
-	
 }
