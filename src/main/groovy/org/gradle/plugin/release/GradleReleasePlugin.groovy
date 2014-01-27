@@ -61,6 +61,14 @@ public class GradleReleasePlugin implements Plugin<Project>  {
 
 			setDevVersionAction.action(info)
 		}
+		
+		project.tasks["createTag"].group ="Release" 
+		project.tasks["createBranch"].group ="Release" 
+		project.tasks["setVersion"].group ="Release" 
+		
+		project.tasks["createTag"].description = "Creates a new tag of the project"
+		project.tasks["createBranch"].description = "Creates a new branch of the project"
+		project.tasks["setVersion"].description = "Sets the version of the project"
 	}
 
 	/**
