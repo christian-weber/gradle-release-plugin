@@ -1,10 +1,7 @@
 package org.gradle.plugin.release.action;
 
 import static org.tmatesoft.svn.core.wc.SVNClientManager.newInstance;
-import static org.tmatesoft.svn.core.wc.SVNRevision.HEAD;
 
-import org.gradle.api.Project;
-import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.StopExecutionException;
 import org.gradle.plugin.release.SVNInfo;
 import org.tmatesoft.svn.core.SVNException;
@@ -13,6 +10,7 @@ import org.tmatesoft.svn.core.internal.wc.DefaultSVNOptions;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNCopyClient;
 import org.tmatesoft.svn.core.wc.SVNCopySource;
+import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 /**
@@ -45,14 +43,17 @@ public abstract class CopyReleaseAction implements ReleaseAction {
 			// parse the SVN destination URL
 			SVNURL url = getSvnUrl(info);
 			// prepare the copy source
-			SVNCopySource[] sources = { new SVNCopySource(HEAD, null, svnUrl) };
+			SVNRevision rev = info.getRevision();
+			SVNCopySource[] sources = { new SVNCopySource(rev, null, svnUrl) };
 			// create the tag
-			copy.doCopy(sources, url, false, false, false, getComment(), null);
+			if (!info.isSimulateRun()) {
+				copy.doCopy(sources, url, false, false, false, getComment(),
+						null);
+			} else {
+				info.getLogger().info("simulate copy SVN folder " + svnUrl);
+			}
 		} catch (SVNException e) {
-			Project project = info.getProject();
-			Logger logger = project.getLogger();
-			logger.error("--> error while copying SVN folder", e);
-
+			info.getLogger().error("--> error while copying SVN folder", e);
 			throw new StopExecutionException();
 		}
 	}
