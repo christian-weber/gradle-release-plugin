@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
+import org.gradle.api.tasks.StopExecutionException;
+import org.tmatesoft.svn.core.wc.SVNRevision;
 
 /**
  * This class stores all relevant SVN information used to invoke a release
@@ -22,6 +24,8 @@ public class SVNInfo {
 	private final String developmentVersion;
 	private final String tagVersion;
 	private final String folderName;
+	private final String simulateRun;
+	private final String revision;
 
 	public SVNInfo(Project project) {
 		this.project = project;
@@ -31,6 +35,8 @@ public class SVNInfo {
 		this.developmentVersion = property(project, "developmentVersion");
 		this.tagVersion = property(project, "tagVersion");
 		this.folderName = property(project, "folderName");
+		this.simulateRun = property(project, "simulateRun");
+		this.revision = property(project, "revision");
 	}
 
 	/**
@@ -82,6 +88,27 @@ public class SVNInfo {
 
 	public String getFolderName() {
 		return folderName;
+	}
+	
+	public boolean isSimulateRun() {
+		return "true".equalsIgnoreCase(simulateRun);
+	}
+	
+	public Logger getLogger() {
+		return project.getLogger();
+	}
+	
+	public SVNRevision getRevision() {
+		if (revision == null) {
+			return SVNRevision.HEAD;
+		}
+		
+		SVNRevision svnr = SVNRevision.parse(revision);
+		if (SVNRevision.UNDEFINED.equals(svnr)) {
+			getLogger().error("--> revision " + revision +" is invalid");
+			throw new StopExecutionException();
+		}
+		return svnr;
 	}
 
 }
