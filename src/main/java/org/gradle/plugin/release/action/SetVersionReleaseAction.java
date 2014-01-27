@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.gradle.api.Project;
-import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.StopExecutionException;
 import org.gradle.plugin.release.SVNInfo;
 import org.gradle.plugin.release.action.ReleaseAction;
@@ -61,20 +60,20 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 
 			// commit 'gradle.properties' file
 			File[] paths = new File[] { gradleProperties };
-			client.doCommit(paths, false, getComment(), new SVNProperties(),
-					new String[0], true, true, SVNDepth.UNKNOWN);
+			if (!info.isSimulateRun()) {
+				SVNProperties props = new SVNProperties();
+				client.doCommit(paths, false, getComment(), props,
+						new String[0], true, true, SVNDepth.UNKNOWN);
+			} else {
+				info.getLogger().info(
+						"simulate set version to " + getVersion(info));
+			}
 
 		} catch (IOException e) {
-			Project project = info.getProject();
-			Logger logger = project.getLogger();
-			logger.error("--> error while setting version", e);
-
+			info.getLogger().error("--> error while setting version", e);
 			throw new StopExecutionException();
 		} catch (SVNException e) {
-			Project project = info.getProject();
-			Logger logger = project.getLogger();
-			logger.error("--> error while setting version", e);
-
+			info.getLogger().error("--> error while setting version", e);
 			throw new StopExecutionException();
 		}
 	}
