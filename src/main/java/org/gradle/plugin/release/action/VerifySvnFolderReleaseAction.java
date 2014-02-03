@@ -56,7 +56,7 @@ public abstract class VerifySvnFolderReleaseAction implements ReleaseAction {
 			Project project = info.getProject();
 			Logger logger = project.getLogger();
 			logger.error("--> " + info.getProjectName() + "/" + getSvnFolder()
-					+ " SVN folder not found");
+					+ " SVN folder not found", e);
 
 			throw new StopExecutionException();
 		}
