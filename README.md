@@ -75,7 +75,7 @@ The *gradle-release-plugin* defines three custom tasks.
 ## Task: createBranch
  
     gradle createBranch -Pusername=svnuser -Ppassword=svnpw -Purl=http://location/trunk 
-    -PdevelopmentVersion=1.1-SNAPSHOT -PtagVersion=1.0
+    -PdevelopmentVersion=1.1-SNAPSHOT
  
 <table border="0">
 	<tr>
@@ -133,10 +133,6 @@ The *gradle-release-plugin* defines three custom tasks.
 	<tr>
 		<td>password</th>
 		<td>The SVN account password used to connect to the SVN server</th>
-	</tr>
-	<tr>
-		<td>url</th>
-		<td>The SVN URL to connect with</th>
 	</tr>
 	<tr>
 		<td>developmentVersion</th>
