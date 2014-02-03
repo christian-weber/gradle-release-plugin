@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.gradle.api.Project;
-import org.gradle.api.tasks.StopExecutionException;
+import org.gradle.api.InvalidUserDataException;
 import org.gradle.plugin.release.SVNInfo;
 import org.gradle.plugin.release.action.ReleaseAction;
 import org.tmatesoft.svn.core.SVNDepth;
@@ -77,10 +77,10 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 
 		} catch (IOException e) {
 			info.getLogger().error("--> error while setting version", e);
-			throw new StopExecutionException();
+			throw new InvalidUserDataException();
 		} catch (SVNException e) {
 			info.getLogger().error("--> error while setting version", e);
-			throw new StopExecutionException();
+			throw new InvalidUserDataException();
 		}
 	}
 
