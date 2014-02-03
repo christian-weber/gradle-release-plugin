@@ -118,8 +118,7 @@ The *gradle-release-plugin* defines three custom tasks.
  
 ## Task: setVersion
  
-      gradle setVersion -Pusername=svnuser -Ppassword=svnpw -Purl=http://location/trunk 
-      -PdevelopmentVersion=1.1-SNAPSHOT
+      gradle setVersion -Pusername=svnuser -Ppassword=svnpw -PdevelopmentVersion=1.1-SNAPSHOT
 
 <table border="0">
 	<tr>
