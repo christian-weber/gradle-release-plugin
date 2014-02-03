@@ -18,6 +18,7 @@ import org.tmatesoft.svn.core.SVNProperties;
 import org.tmatesoft.svn.core.internal.wc.DefaultSVNOptions;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNCommitClient;
+import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 /**
@@ -33,6 +34,11 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 	 */
 	@Override
 	public void action(SVNInfo info) {
+
+		if (!SVNRevision.HEAD.equals info.getRevision()) {
+			info.getLogger().info("--> SVNRevision not equals HEAD, skip set version");
+			return;
+		}
 
 		final String us = info.getUsername();
 		final String pw = info.getPassword();
