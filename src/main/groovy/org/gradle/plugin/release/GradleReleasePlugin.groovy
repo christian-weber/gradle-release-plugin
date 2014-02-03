@@ -2,7 +2,7 @@ package org.gradle.plugin.release;
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.StopExecutionException
+import org.gradle.api.InvalidUserDataException
 import org.gradle.plugin.release.action.CopyReleaseAction
 import org.gradle.plugin.release.action.ReleaseAction
 import org.gradle.plugin.release.action.VerifySvnFolderReleaseAction
@@ -137,7 +137,7 @@ public class GradleReleasePlugin implements Plugin<Project>  {
 	private void notNull(Project project, String property) {
 		if (!project.hasProperty(property)) {
 			project.logger.error("--> property " + property + " must not be null")
-			throw new StopExecutionException()
+			throw new InvalidUserDataException()
 		}
 	}
 
