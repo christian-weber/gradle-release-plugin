@@ -123,11 +123,7 @@ public class GradleReleasePlugin implements Plugin<Project>  {
 		notNull(project, "password")
 		notNull(project, "developmentVersion")
 
-		def info = new SVNInfo(project)
-
-		verifyUrlAction.action(info)
-
-		return info
+		return new SVNInfo(project)
 	}
 
 	/**
