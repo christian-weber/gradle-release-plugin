@@ -54,7 +54,7 @@ public class VerifyUrlReleaseAction implements ReleaseAction {
 			throw new IllegalArgumentException("SVNInfo must not be null");
 		}
 		final String url = info.getUrl();
-		return url.endsWith("/branches/" + info.getProjectName());
+		return url.contains("/branches/");
 	}
 
 }
