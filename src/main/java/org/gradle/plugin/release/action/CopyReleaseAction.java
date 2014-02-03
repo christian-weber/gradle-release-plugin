@@ -2,7 +2,7 @@ package org.gradle.plugin.release.action;
 
 import static org.tmatesoft.svn.core.wc.SVNClientManager.newInstance;
 
-import org.gradle.api.tasks.StopExecutionException;
+import org.gradle.api.InvalidUserDataException;
 import org.gradle.plugin.release.SVNInfo;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
@@ -54,7 +54,7 @@ public abstract class CopyReleaseAction implements ReleaseAction {
 			}
 		} catch (SVNException e) {
 			info.getLogger().error("--> error while copying SVN folder", e);
-			throw new StopExecutionException();
+			throw new InvalidUserDataException();
 		}
 	}
 
