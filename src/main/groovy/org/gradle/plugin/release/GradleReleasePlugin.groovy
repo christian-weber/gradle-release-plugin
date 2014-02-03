@@ -121,7 +121,6 @@ public class GradleReleasePlugin implements Plugin<Project>  {
 	private SVNInfo parseSetVersionInfo(Project project) {
 		notNull(project, "username")
 		notNull(project, "password")
-		notNull(project, "url")
 		notNull(project, "developmentVersion")
 
 		def info = new SVNInfo(project)
