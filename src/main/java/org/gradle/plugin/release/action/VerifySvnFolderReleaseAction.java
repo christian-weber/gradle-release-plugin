@@ -84,6 +84,12 @@ public abstract class VerifySvnFolderReleaseAction implements ReleaseAction {
 	 */
 	protected abstract String getSvnFolder();
 
+	/**
+	 * {@link VerifySvnFolderReleaseAction} implementation used to verify if the
+	 * 'tags' folder exists.
+	 * 
+	 * @author christian.weber
+	 */
 	public static class VerifyTagFolderReleaseAction extends
 			VerifySvnFolderReleaseAction {
 
@@ -94,6 +100,12 @@ public abstract class VerifySvnFolderReleaseAction implements ReleaseAction {
 
 	}
 
+	/**
+	 * {@link VerifySvnFolderReleaseAction} implementation used to verify if the
+	 * 'branches' folder exists.
+	 * 
+	 * @author christian.weber
+	 */
 	public static class VerifyBranchFolderReleaseAction extends
 			VerifySvnFolderReleaseAction {
 
