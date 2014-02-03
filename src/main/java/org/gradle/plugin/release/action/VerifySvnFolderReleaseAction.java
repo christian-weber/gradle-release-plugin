@@ -4,7 +4,7 @@ import static org.tmatesoft.svn.core.wc.SVNClientManager.newInstance;
 
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
-import org.gradle.api.tasks.StopExecutionException;
+import org.gradle.api.InvalidUserDataException;
 import org.gradle.plugin.release.SVNInfo;
 import org.tmatesoft.svn.core.ISVNDirEntryHandler;
 import org.tmatesoft.svn.core.SVNDepth;
@@ -58,7 +58,7 @@ public abstract class VerifySvnFolderReleaseAction implements ReleaseAction {
 			logger.error("--> " + info.getProjectName() + "/" + getSvnFolder()
 					+ " SVN folder not found", e);
 
-			throw new StopExecutionException();
+			throw new InvalidUserDataException();
 		}
 
 	}
