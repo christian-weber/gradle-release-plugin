@@ -53,8 +53,7 @@ public abstract class CopyReleaseAction implements ReleaseAction {
 				info.getLogger().info("simulate copy SVN folder " + svnUrl);
 			}
 		} catch (SVNException e) {
-			info.getLogger().error("--> error while copying SVN folder", e);
-			throw new InvalidUserDataException();
+			throw new InvalidUserDataException("error while copying SVN folder", e);
 		}
 	}
 
