@@ -128,7 +128,11 @@ public abstract class CopyReleaseAction implements ReleaseAction {
 			final String fn = defaultStr(info.getFolderName(), pn + "-" + v);
 
 			SVNURL svnUrl = SVNURL.parseURIEncoded(info.getUrl());
-			svnUrl = svnUrl.removePathTail();
+			
+			while (!svnUrl.getPath().endsWith(info.getProjectName())) {
+				svnUrl = svnUrl.removePathTail();
+			}
+			
 			svnUrl = svnUrl.appendPath("tags", true);
 			svnUrl = svnUrl.appendPath(fn, true);
 
