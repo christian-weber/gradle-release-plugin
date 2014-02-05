@@ -35,7 +35,7 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 	@Override
 	public void action(SVNInfo info) {
 
-		if (!SVNRevision.HEAD.equals info.getRevision()) {
+		if (!SVNRevision.HEAD.equals(info.getRevision()) {
 			info.getLogger().info("--> SVNRevision not equals HEAD, skip set version");
 			return;
 		}
