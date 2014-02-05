@@ -20,11 +20,7 @@ public class VerifyUrlReleaseAction implements ReleaseAction {
 	public void action(SVNInfo info) {
 
 		if (!isTrunkSvnUrl(info) && !isBranchSvnUrl(info)) {
-			Project project = info.getProject();
-			Logger logger = project.getLogger();
-			logger.error("--> svn url must direct on a trunk or branch location");
-			
-			throw new InvalidUserDataException();
+			throw new InvalidUserDataException("svn url must direct on a trunk or branch location");
 		}
 
 	}
@@ -37,7 +33,7 @@ public class VerifyUrlReleaseAction implements ReleaseAction {
 	 */
 	private boolean isTrunkSvnUrl(SVNInfo info) {
 		if (info == null) {
-			throw new IllegalArgumentException("SVNInfo must not be null");
+			throw new InvalidUserDataException("SVNInfo must not be null");
 		}
 		final String url = info.getUrl();
 		return url.endsWith("/trunk");
@@ -51,7 +47,7 @@ public class VerifyUrlReleaseAction implements ReleaseAction {
 	 */
 	private boolean isBranchSvnUrl(SVNInfo info) {
 		if (info == null) {
-			throw new IllegalArgumentException("SVNInfo must not be null");
+			throw new InvalidUserDataException("SVNInfo must not be null");
 		}
 		final String url = info.getUrl();
 		return url.contains("/branches/");
