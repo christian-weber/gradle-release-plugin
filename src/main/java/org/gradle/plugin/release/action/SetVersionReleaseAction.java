@@ -76,11 +76,9 @@ public abstract class SetVersionReleaseAction implements ReleaseAction {
 			}
 
 		} catch (IOException e) {
-			info.getLogger().error("--> error while setting version", e);
-			throw new InvalidUserDataException();
+			throw new InvalidUserDataException("error while setting version", e);
 		} catch (SVNException e) {
-			info.getLogger().error("--> error while setting version", e);
-			throw new InvalidUserDataException();
+			throw new InvalidUserDataException("error while setting version", e);
 		}
 	}
 
