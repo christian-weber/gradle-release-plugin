@@ -46,7 +46,11 @@ public abstract class VerifySvnFolderReleaseAction implements ReleaseAction {
 			ISVNDirEntryHandler handler = new MuteSVNDirEntryHandler();
 
 			SVNURL svnUrl = SVNURL.parseURIEncoded(info.getUrl());
-			svnUrl = svnUrl.removePathTail();
+			
+			while (!svnUrl.getPath().endsWith(info.getProjectName())) {
+				svnUrl = svnUrl.removePathTail();
+			}
+			
 			svnUrl = svnUrl.appendPath(getSvnFolder(), true);
 
 			client.doList(svnUrl, HEAD, HEAD, false, SVNDepth.UNKNOWN,
