@@ -53,12 +53,7 @@ public abstract class VerifySvnFolderReleaseAction implements ReleaseAction {
 					SVNDirEntry.DIRENT_TIME, handler);
 
 		} catch (SVNException e) {
-			Project project = info.getProject();
-			Logger logger = project.getLogger();
-			logger.error("--> " + info.getProjectName() + "/" + getSvnFolder()
-					+ " SVN folder not found", e);
-
-			throw new InvalidUserDataException();
+			throw new InvalidUserDataException(e);
 		}
 
 	}
